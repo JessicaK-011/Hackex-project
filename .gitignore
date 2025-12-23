@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Env files (VERY IMPORTANT)
+.env
+config.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+
+# OS / editor
+.DS_Store
+.vscode/
+
+# Logs
+logs
+*.log
