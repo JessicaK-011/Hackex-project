@@ -92,7 +92,7 @@ const ProblemDetail = () => {
 
     try {
       const response = await fetch(
-        "https://hackex-compiler.onrender.com/execute",
+        "https://hackex-compiler-9zlx.onrender.com/execute",
         {
           method: "POST",
           headers: {
@@ -148,7 +148,7 @@ const ProblemDetail = () => {
 
     try {
       const runResponse = await fetch(
-        "https://hackex-compiler.onrender.com/execute",
+        "https://hackex-compiler-9zlx.onrender.com/execute",
         {
           method: "POST",
           headers: {

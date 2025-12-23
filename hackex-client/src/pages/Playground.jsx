@@ -39,7 +39,7 @@ const Playground = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://hackex-compiler.onrender.com/execute",
+        "https://hackex-compiler-9zlx.onrender.com/execute",
         {
           method: "POST",
           headers: {
