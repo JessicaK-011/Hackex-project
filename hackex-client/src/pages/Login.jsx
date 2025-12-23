@@ -23,7 +23,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://hackex.onrender.com/api/v1/users/login",
+        "https://hackex-backend.onrender.com/api/v1/users/login",
         {
           method: "POST",
           headers: {

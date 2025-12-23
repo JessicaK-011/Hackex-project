@@ -21,9 +21,15 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "*", // Your frontend URL
-  // credentials: true, // Allow credentials
+  origin: [
+    "http://localhost:5173",
+    "https://hackex-client.vercel.app",
+  ],
+  credentials: true,
 };
+
+app.use(cors(corsOptions));
+
 
 app.use(cors(corsOptions));
 

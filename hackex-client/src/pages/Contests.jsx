@@ -16,7 +16,7 @@ const Contests = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://hackex.onrender.com/api/v1/contests/allContests"
+          "https://hackex-backend.onrender.com/api/v1/contests/allContests"
         );
         if (response.ok) {
           const data = await response.json();

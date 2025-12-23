@@ -13,7 +13,7 @@ const LeaderBoard = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://hackex.onrender.com/api/v1/users/leaderboard"
+          "https://hackex-backend.onrender.com/api/v1/users/leaderboard"
         );
         const sortedData = response.data.users.sort(
           (a, b) => b.noOfProblems - a.noOfProblems

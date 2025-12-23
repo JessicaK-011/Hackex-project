@@ -29,7 +29,7 @@ const ProblemDetail = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://hackex.onrender.com/api/v1/problems/getProblem/${id}`
+          `https://hackex-backend.onrender.com/api/v1/problems/getProblem/${id}`
         );
 
         if (response.ok) {
@@ -112,7 +112,7 @@ const ProblemDetail = () => {
 
     try {
       const response = await fetch(
-        "https://hackex.onrender.com/api/v1/users/submitCode",
+        "https://hackex-backend.onrender.com/api/v1/users/submitCode",
         {
           method: "POST",
           headers: {
