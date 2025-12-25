@@ -90,7 +90,3 @@ This platform is not just functional but also enjoyable to use. It blends high p
    The server runs at `http://localhost:3000`.
    The compiler runs at `https://localhost:8000`.
 
-## Contributors
-- **Kshitij Gupta**
-- **Akshitha Mittapally**
-- **Harsh Dalwadi**
