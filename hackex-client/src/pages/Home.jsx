@@ -2,114 +2,106 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProblemList from "./ProblemList";
 import LeaderBoard from "./LeaderBoard";
-import { useTheme } from "../themeContext"; // Adjust path as needed
+import { useTheme } from "../themeContext";
 import { useUser } from "../userContext";
-import img from "../assets/img2.png";
+import heroImg from "../assets/homePageMain.png";
 
 const Home = () => {
-  const { theme } = useTheme(); // Get theme context
-  const platformInfo = {
-    title: "Welcome to Hackex",
-    description:
-      "Hackex is a cutting-edge platform designed to enhance your coding skills through interactive challenges, diverse contests, and a vibrant community. Whether you're a beginner or a seasoned coder, Hackex offers a range of tools and opportunities to grow and showcase your abilities. Dive into coding challenges, participate in competitive contests, and connect with fellow developers to take your skills to the next level.",
-  };
+  const { theme } = useTheme();
+  const { isLoggedIn } = useUser();
 
-  const { isLoggedIn } = useUser(); // Access login state
-
-  useEffect(() => {
-    // This ensures that the Navbar will re-render if the user login state changes
-  }, [isLoggedIn]);
-
-  const cardBgColor = theme === "light" ? "bg-gray-100" : "bg-gray-700";
-  const cardHoverColor =
-    theme === "light" ? "hover:bg-gray-200" : "hover:bg-gray-600";
+  useEffect(() => {}, [isLoggedIn]);
 
   return (
-    <div
-      className={`flex flex-col lg:flex-row justify-between items-start lg:items-start lg:space-x-10 p-8 ${
-        theme !== "light"
-          ? "bg-gray-900 text-gray-100"
-          : "bg-gray-50 text-gray-900"
-      } min-h-screen`}
-    >
-      {/* Main Content */}
-      <div className="lg:w-3/5 flex flex-col">
-        {/* Platform Information */}
-        <div
-          className={`flex flex-col items-center justify-center p-6 rounded-lg shadow-lg mb-6 ${
-            theme !== "light" ? "bg-gray-800" : "bg-gray-100"
-          } text-center`}
-        >
-          <h1 className="text-4xl font-bold mb-4">{platformInfo.title}</h1>
-          <p className="text-lg">{platformInfo.description}</p>
-        </div>
-        {/* Specialties Section */}
-        <div className="flex flex-col lg:flex-row lg:space-x-6 mb-6">
-          {/* Coding Playground */}
-          <div
-            className={`flex-1 p-6 rounded-lg shadow-lg mb-4 lg:mb-0 flex flex-col items-center justify-center ${cardBgColor} ${cardHoverColor} transition-transform duration-300 ease-in-out hover:scale-105`}
-          >
-            <Link to="/playground">
-              <h2 className="text-2xl font-bold mb-2 text-center">
-                Coding Playground
-              </h2>
-              <p className="text-center">
-                A place where users can play with code. Users can code in a code
-                editor and execute it with custom inputs. See errors, output,
-                and metrics like execution time & memory usage.
-              </p>
-            </Link>
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      {/* ================= HERO SECTION ================= */}
+      <section className="bg-[#5044e5]">
+        <div className="max-w-7xl mx-auto px-8 py-20 flex flex-col lg:flex-row items-center justify-between gap-16">
+          {/* Left Content */}
+          <div className="lg:w-3/5 space-y-6 text-white">
+            <h1 className="text-5xl font-extrabold leading-tight">
+              Level up your coding skills <br />
+              with <span className="opacity-95">Hackex</span>
+            </h1>
+
+            <p className="text-lg opacity-90 max-w-xl">
+              Practice real-world coding problems, compete in contests, and
+              sharpen your problem-solving skills on a modern coding platform
+              built for growth.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Link
+                to="/problems"
+                className="px-8 py-3 rounded-xl bg-white text-[#5044e5] font-semibold hover:opacity-90 transition"
+              >
+                Start Solving
+              </Link>
+
+              <Link
+                to="/playground"
+                className="px-8 py-3 rounded-xl border border-white text-white font-semibold hover:bg-white hover:text-[#5044e5] transition"
+              >
+                Try Playground
+              </Link>
+            </div>
           </div>
-          {/* Coding Arena */}
-          <div
-            className={`flex-1 p-6 rounded-lg shadow-lg mb-4 lg:mb-0 flex flex-col items-center justify-center ${cardBgColor} ${cardHoverColor} transition-transform duration-300 ease-in-out hover:scale-105`}
-          >
-            <Link to="/problems">
-              <h2 className="text-2xl font-bold mb-2 text-center">
-                Coding Arena
-              </h2>
-              <p className="text-center">
-                A place where users can practice their coding skills by solving
-                various problems available on the platform. Users may upload
-                their own coding problem along with its description,
-                constraints, and test cases.
-              </p>
-            </Link>
-          </div>
-          {/* Coding Battleground */}
-          <div
-            className={`flex-1 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center ${cardBgColor} ${cardHoverColor} transition-transform duration-300 ease-in-out hover:scale-105`}
-          >
-            <Link to="/contests">
-              <h2 className="text-2xl font-bold mb-2 text-center">
-                Coding Battleground
-              </h2>
-              <p className="text-center">
-                A place where users can compete in ongoing contests hosted on
-                the platform to showcase their skills. See real-time
-                leaderboards and conduct your own contests.
-              </p>
-            </Link>
+
+          {/* Right Image */}
+          <div className="lg:w-2/5 flex justify-center">
+            <img
+              src={heroImg}
+              alt="Coding illustration"
+              className="w-80 lg:w-[420px]"
+            />
           </div>
         </div>
-        {/* Problem List */}
-        <div className="flex-grow">
+      </section>
+
+      {/* ================= FEATURES ================= */}
+      <section className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            title: "Coding Playground",
+            desc:
+              "Write, run, and test code instantly with custom inputs and execution metrics.",
+            link: "/playground",
+          },
+          {
+            title: "Coding Arena",
+            desc:
+              "Solve curated coding problems and even upload your own challenges.",
+            link: "/problems",
+          },
+          {
+            title: "Coding Battleground",
+            desc:
+              "Compete in live contests, climb leaderboards, and prove your skills.",
+            link: "/contests",
+          },
+        ].map((item, index) => (
+          <Link
+            to={item.link}
+            key={index}
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+          >
+            <h3 className="text-2xl font-bold mb-3 text-[#5044e5]">
+              {item.title}
+            </h3>
+            <p className="text-gray-600">{item.desc}</p>
+          </Link>
+        ))}
+      </section>
+
+      {/* ================= MAIN CONTENT ================= */}
+      <section className="max-w-7xl mx-auto px-8 pb-16 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="lg:col-span-2">
           <ProblemList />
         </div>
-      </div>
-
-      {/* Sidebar and Image Container */}
-      <div className="lg:w-2/5 w-full flex flex-col items-start lg:items-center mt-4">
-        <div className="text-center opacity-100 flex items-center justify-center">
-          <img
-            src={img}
-            alt="Decorative"
-            className="w-4/6" // Ensures no hover effect
-          />
+        <div>
+          <LeaderBoard />
         </div>
-        <LeaderBoard />
-        {/* Image Section */}
-      </div>
+      </section>
     </div>
   );
 };
