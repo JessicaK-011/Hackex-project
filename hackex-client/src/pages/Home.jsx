@@ -13,9 +13,21 @@ const Home = () => {
   useEffect(() => {}, [isLoggedIn]);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div
+      className={`min-h-screen ${
+        theme === "light"
+          ? "bg-gray-50 text-gray-900"
+          : "bg-gradient-to-b from-[#0f172a] to-[#020617] text-gray-100"
+      }`}
+    >
       {/* ================= HERO SECTION ================= */}
-      <section className="bg-[#5044e5]">
+      <section
+        className={`${
+          theme === "light"
+            ? "bg-[#5044e5]"
+            : "bg-gradient-to-r from-[#2a2466] to-[#1e1b4b]"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-8 py-20 flex flex-col lg:flex-row items-center justify-between gap-16">
           {/* Left Content */}
           <div className="lg:w-3/5 space-y-6 text-white">
@@ -48,47 +60,56 @@ const Home = () => {
           </div>
 
           {/* Right Image */}
-          <div className="lg:w-2/5 flex justify-center">
+          <div className="w-96 lg:w-[500px] drop-shadow-xl">
             <img
               src={heroImg}
               alt="Coding illustration"
-              className="w-80 lg:w-[420px]"
+              className="w-[420px] lg:w-[560px]"
             />
           </div>
         </div>
       </section>
 
       {/* ================= FEATURES ================= */}
-      <section className="max-w-7xl mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section
+        className={`max-w-7xl mx-auto px-8 pb-20 grid grid-cols-1 lg:grid-cols-3 gap-10 ${
+          theme === "light" ? "" : "pt-12"
+        }`}
+      >
         {[
           {
             title: "Coding Playground",
-            desc:
-              "Write, run, and test code instantly with custom inputs and execution metrics.",
+            desc: "Write, run, and test code instantly with custom inputs and execution metrics.",
             link: "/playground",
           },
           {
             title: "Coding Arena",
-            desc:
-              "Solve curated coding problems and even upload your own challenges.",
+            desc: "Solve curated coding problems and even upload your own challenges.",
             link: "/problems",
           },
           {
             title: "Coding Battleground",
-            desc:
-              "Compete in live contests, climb leaderboards, and prove your skills.",
+            desc: "Compete in live contests, climb leaderboards, and prove your skills.",
             link: "/contests",
           },
         ].map((item, index) => (
           <Link
             to={item.link}
             key={index}
-            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+            className={`rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ${
+              theme === "light"
+                ? "bg-white"
+                : "bg-[#020617] border border-gray-700"
+            }`}
           >
             <h3 className="text-2xl font-bold mb-3 text-[#5044e5]">
               {item.title}
             </h3>
-            <p className="text-gray-600">{item.desc}</p>
+            <p
+              className={theme === "light" ? "text-gray-600" : "text-gray-400"}
+            >
+              {item.desc}
+            </p>
           </Link>
         ))}
       </section>

@@ -1,17 +1,19 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useTheme } from "../themeContext"; // Import ThemeContext
+import { useTheme } from "../themeContext";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
-  const { theme } = useTheme(); // Access theme from context
+  const { theme } = useTheme();
 
   const handleSignup = async () => {
+    setError("");
     try {
       const response = await fetch(
         "https://hackex-backend.onrender.com/api/v1/users/signup",
@@ -34,71 +36,78 @@ const Signup = () => {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center p-8 ${
+      className={`min-h-screen flex items-center justify-center px-6 ${
         theme === "light"
           ? "bg-gray-100 text-gray-900"
           : "bg-gray-900 text-gray-100"
       }`}
     >
       <div
-        className={`w-full max-w-md p-8 rounded-lg shadow-lg ${
+        className={`w-full max-w-md p-8 rounded-2xl shadow-xl ${
           theme === "light"
-            ? "bg-gray-50 border border-gray-300"
+            ? "bg-white border border-gray-200"
             : "bg-gray-800 border border-gray-700"
         }`}
       >
-        <h1 className="text-3xl font-bold mb-6 text-center">Signup</h1>
-        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+        <h1 className="text-3xl font-bold mb-6 text-center">
+          Create your account
+        </h1>
+
+        {error && (
+          <p className="text-red-500 mb-4 text-center font-medium">{error}</p>
+        )}
+
+        {/* Username */}
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className={`w-full p-3 mb-4 rounded-lg border-2 ${
-            theme === "light"
-              ? "bg-gray-200 text-gray-900 border-gray-400"
-              : "bg-gray-700 text-white border-gray-600"
-          } focus:outline-none focus:border-blue-500`}
           placeholder="Username"
+          className={`w-full p-3 mb-4 rounded-lg border focus:outline-none ${
+            theme === "light"
+              ? "bg-gray-100 border-gray-300 text-gray-900 focus:border-[#5044e5]"
+              : "bg-gray-700 border-gray-600 text-white focus:border-[#5044e5]"
+          }`}
         />
+
+        {/* Email */}
         <input
-          type="text"
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className={`w-full p-3 mb-4 rounded-lg border-2 ${
-            theme === "light"
-              ? "bg-gray-200 text-gray-900 border-gray-400"
-              : "bg-gray-700 text-white border-gray-600"
-          } focus:outline-none focus:border-blue-500`}
           placeholder="Email"
+          className={`w-full p-3 mb-4 rounded-lg border focus:outline-none ${
+            theme === "light"
+              ? "bg-gray-100 border-gray-300 text-gray-900 focus:border-[#5044e5]"
+              : "bg-gray-700 border-gray-600 text-white focus:border-[#5044e5]"
+          }`}
         />
+
+        {/* Password */}
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className={`w-full p-3 mb-4 rounded-lg border-2 ${
-            theme === "light"
-              ? "bg-gray-200 text-gray-900 border-gray-400"
-              : "bg-gray-700 text-white border-gray-600"
-          } focus:outline-none focus:border-blue-500`}
           placeholder="Password"
+          className={`w-full p-3 mb-6 rounded-lg border focus:outline-none ${
+            theme === "light"
+              ? "bg-gray-100 border-gray-300 text-gray-900 focus:border-[#5044e5]"
+              : "bg-gray-700 border-gray-600 text-white focus:border-[#5044e5]"
+          }`}
         />
 
-        <button
-          onClick={handleSignup}
-          className={`bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold transition w-full ${
-            theme === "light" ? "hover:bg-blue-600" : "hover:bg-blue-700"
-          }`}
-        >
-          Login
+        {/* Sign up button */}
+        <button onClick={handleSignup} className="btn-primary w-full py-3">
+          Sign Up
         </button>
-        <div className="mt-4 text-center">
+
+        {/* Footer */}
+        <div className="mt-6 text-center text-sm">
+          <p className="opacity-80">Already have an account?</p>
           <Link
             to="/login"
-            className={`text-blue-400 hover:underline ${
-              theme === "light" ? "hover:text-blue-500" : "hover:text-blue-300"
-            }`}
+            className="font-semibold text-[#5044e5] hover:underline"
           >
-            <p className="">Already have an account?</p>
             Login
           </Link>
         </div>

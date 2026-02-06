@@ -13,7 +13,7 @@ const ProblemList = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://hackex-backend.onrender.com/api/v1/problems/allProblems"
+          "https://hackex-backend.onrender.com/api/v1/problems/allProblems",
         );
         const data = await response.json();
         console.log(data); // Log data to check its structure
@@ -110,7 +110,7 @@ const ProblemList = () => {
                 Title
               </th>
               <th className={`p-4 text-left`}>Description</th>
-              <th className={`p-4 text-left`}>Tag</th>{" "}
+              <th className="p-4 text-left">Tag</th>
               {/* New column for tag */}
               <th
                 className={`p-4 text-left ${
@@ -143,20 +143,14 @@ const ProblemList = () => {
                 </td>
                 <td
                   className={`p-4 ${getTagStyle(
-                    problem.tag
+                    problem.tag,
                   )} borderpx-3 py-1 text-md `}
                 >
                   <strong>{problem.tag || "Not Specified"}</strong>
                 </td>
                 <td className="p-4">
                   <Link to={`/problem/${problem._id}`}>
-                    <button
-                      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                        theme !== "light"
-                          ? "bg-blue-500 hover:bg-blue-600 text-white"
-                          : "bg-blue-400 hover:bg-blue-500 text-white"
-                      }`}
-                    >
+                    <button className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#5044e5] hover:opacity-90 transition">
                       View
                     </button>
                   </Link>

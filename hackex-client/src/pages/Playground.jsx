@@ -254,7 +254,7 @@ const Playground = () => {
                 </label>
                 <button
                   onClick={() => downloadFile("output.txt", output)}
-                  className="mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-lg transition-colors duration-200"
+                  className="mt-2 bg-[#5044e5]  hover:bg-blue-600 text-white py-1 px-3 rounded-lg transition-colors duration-200"
                 >
                   <FontAwesomeIcon icon={faDownload} className="mr-2" />
                   Download Output

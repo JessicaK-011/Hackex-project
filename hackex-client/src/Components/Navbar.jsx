@@ -1,24 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../userContext";
-import { useTheme } from "../themeContext"; // Import ThemeContext
-import { FaSun, FaMoon, FaPowerOff } from "react-icons/fa";
-import logo from "../assets/logo.png"; // Light mode logo
-import logoDark from "../assets/logoDark.png"; // Dark mode logo
+import { useTheme } from "../themeContext";
+import { FaSun, FaMoon, FaPowerOff, FaUser } from "react-icons/fa";
+import logo from "../assets/logo.png";
+import logoDark from "../assets/logoDark.png";
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
-  const { theme, toggleTheme } = useTheme(); // Access theme and toggle function from context
-
-  const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const { isLoggedIn, logout } = useUser();
+  const navigate = useNavigate();
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
-  };
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -28,17 +24,13 @@ const Navbar = () => {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = async () => {
     const response = await fetch(
       "https://hackex.onrender.com/api/v1/users/logout",
-      {
-        method: "GET",
-      }
+      { method: "GET" }
     );
     if (response.ok) {
       await logout();
@@ -50,68 +42,70 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`${
+      className={`sticky top-0 z-50 shadow-md ${
         theme === "light"
-          ? "bg-gray-50 text-gray-900 shadow-md"
-          : "bg-gray-800 text-gray-100 shadow-md"
-      } sticky top-0 z-50`}
+          ? "bg-gray-50 text-gray-900"
+          : "bg-gray-800 text-gray-100"
+      }`}
     >
       <div className="mx-auto flex justify-between items-center p-4">
-        <div className="flex items-center">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-xl font-semibold flex items-center space-x-2"
+        >
+          <img
+            src={theme === "light" ? logoDark : logo}
+            alt="Logo"
+            className="h-10 w-auto"
+          />
+          <span className="ml-4">Hackex</span>
+        </Link>
+
+        {/* Nav Links */}
+        <div className="flex items-center space-x-12">
           <Link
-            to="/"
-            className="text-xl font-semibold flex items-center space-x-2"
-          >
-            {/* Conditional Logo Rendering */}
-            <img
-              src={theme === "light" ? logoDark : logo}
-              alt="Logo"
-              className="h-10 w-auto"
-            />
-            <span className="ml-4">Hackex</span>
-          </Link>
-        </div>
-        <div className="flex items-center justify-around space-x-12">
-          <Link
-            to="/problems"
-            className="text-md hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
-          >
-            Problems
-          </Link>
-          <Link
-            to="/contests"
-            className="text-md hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
-          >
-            Contests
-          </Link>
-          <Link
-            to="/playground"
-            className="text-md hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
-          >
-            Playground
-          </Link>
-          <Link
-            to="/submit"
-            className="text-md hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
-          >
-            Submit Problem
-          </Link>
+  to="/problems"
+  className="text-md transition-all duration-300 transform hover:scale-105 hover:text-[#5044e5]"
+>
+  Problems
+</Link>
+
+<Link
+  to="/contests"
+  className="text-md transition-all duration-300 transform hover:scale-105 hover:text-[#5044e5]"
+>
+  Contests
+</Link>
+
+<Link
+  to="/playground"
+  className="text-md transition-all duration-300 transform hover:scale-105 hover:text-[#5044e5]"
+>
+  Playground
+</Link>
+
+<Link
+  to="/submit"
+  className="text-md transition-all duration-300 transform hover:scale-105 hover:text-[#5044e5]"
+>
+  Submit Problem
+</Link>
+
+
+          {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className={`text-lg focus:outline-none transition duration-300 ${
-              theme === "light" ? "text-gray-900" : "text-gray-100"
-            }`}
+            className="text-lg transition duration-300 focus:outline-none"
             aria-label="Toggle Theme"
           >
             {theme === "light" ? <FaMoon /> : <FaSun />}
           </button>
-          <div className="ml-6 flex items-center space-x-4">
-            {/* Theme toggle icon */}
+
+          {/* Auth Section */}
+          <div className="ml-6 flex items-center">
             {!isLoggedIn ? (
-              <Link
-                to="/login"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex items-center justify-between"
-              >
+              <Link to="/login" className="btn-primary flex items-center">
                 <FaUser className="mr-2" />
                 Login/Register
               </Link>
@@ -119,31 +113,30 @@ const Navbar = () => {
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center transition-transform duration-300 transform hover:scale-105"
+                  className="btn-primary"
                   aria-label="User Menu"
                 >
-                  <FaPowerOff className="text-xl" />
+                  <FaPowerOff />
                 </button>
+
                 {isDropdownOpen && (
                   <div
                     ref={dropdownRef}
-                    className="absolute right-0 mt-2 bg-gray-700 text-gray-100 rounded-lg shadow-lg w-40"
+                    className="absolute right-0 mt-2 w-40 rounded-lg shadow-lg overflow-hidden bg-gray-700 text-gray-100"
                   >
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 hover:bg-blue-500 transition duration-300"
+                      className="block px-4 py-2 hover:bg-[#5044e5] transition"
                       onClick={() => setDropdownOpen(false)}
                     >
                       Profile
                     </Link>
-                    <Link to="/home">
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full px-4 py-2 text-left hover:bg-blue-500 transition duration-300"
-                      >
-                        Logout
-                      </button>
-                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 hover:bg-[#5044e5] transition"
+                    >
+                      Logout
+                    </button>
                   </div>
                 )}
               </div>

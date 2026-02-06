@@ -16,7 +16,7 @@ const Contests = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://hackex-backend.onrender.com/api/v1/contests/allContests"
+          "https://hackex-backend.onrender.com/api/v1/contests/allContests",
         );
         if (response.ok) {
           const data = await response.json();
@@ -43,10 +43,10 @@ const Contests = () => {
 
   // Separate contests into live and normal based on current time
   const liveContests = contests.filter((contest) =>
-    isContestLive(contest.startTime, contest.endTime)
+    isContestLive(contest.startTime, contest.endTime),
   );
   const normalContests = contests.filter(
-    (contest) => !isContestLive(contest.startTime, contest.endTime)
+    (contest) => !isContestLive(contest.startTime, contest.endTime),
   );
 
   const handleContestClick = (contest) => {
@@ -153,7 +153,8 @@ const Contests = () => {
           <h3 className="text-2xl font-semibold mb-4">Upcoming Contests</h3>
           <Link
             to="/create-contest"
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex items-center justify-between"
+            className="bg-[var(--brand-primary)] hover:opacity-90 text-white py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex items-center justify-between"
+
           >
             Create Contest
             <FaPlusCircle className="ml-2" />
@@ -186,13 +187,14 @@ const Contests = () => {
           </thead>
           <tbody>
             {normalContests?.length > 0 ? (
-              normalContests?.map((contest) => {
+              normalContests.map((contest) => {
                 const startDate = new Date(
-                  contest.startTime
+                  contest.startTime,
                 ).toLocaleDateString();
                 const startTime = new Date(
-                  contest.startTime
+                  contest.startTime,
                 ).toLocaleTimeString();
+
                 return (
                   <tr
                     key={contest._id}
@@ -212,7 +214,11 @@ const Contests = () => {
                 );
               })
             ) : (
-              <div className="m-8">No upcoming contests.Create one!</div>
+              <tr>
+                <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
+                  No upcoming contests. Create one!
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

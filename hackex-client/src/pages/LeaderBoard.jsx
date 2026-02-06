@@ -13,10 +13,10 @@ const LeaderBoard = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://hackex-backend.onrender.com/api/v1/users/leaderboard"
+          "https://hackex-backend.onrender.com/api/v1/users/leaderboard",
         );
         const sortedData = response.data.users.sort(
-          (a, b) => b.noOfProblems - a.noOfProblems
+          (a, b) => b.noOfProblems - a.noOfProblems,
         );
         setLeaderboardData(sortedData);
       } catch (error) {
@@ -93,7 +93,7 @@ const LeaderBoard = () => {
           <tbody>
             {leaderboardData.map((user, index) => (
               <tr
-                key={user.email}
+                key={user._id || user.email || index}
                 className={`lowercase border-b ${
                   theme === "light" ? "border-gray-300" : "border-gray-600"
                 }`}
