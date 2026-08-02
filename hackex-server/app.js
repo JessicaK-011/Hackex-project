@@ -18,7 +18,6 @@ const problemRouter = require("./routes/problemRoutes");
 const contestRouter = require("./routes/contestRouter");
 
 const app = express();
-app.use(express.json());
 
 const corsOptions = {
   origin: [
@@ -27,9 +26,6 @@ const corsOptions = {
   ],
   credentials: true,
 };
-
-app.use(cors(corsOptions));
-
 
 app.use(cors(corsOptions));
 
