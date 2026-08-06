@@ -2,13 +2,7 @@ const User = require("../models/userModel");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
-exports.hello = catchAsync(async (req, res, next) => {
-  res.status(200).json({
-    status: "success",
-    message: "hello",
-  });
-});
-
+// to fetch all registered users from MongoDB
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find({});
   if (!users || users.length === 0) {
@@ -54,6 +48,7 @@ exports.submitCode = catchAsync(async (req, res, next) => {
   }
 });
 
+// Accepts an email, finds the user, and returns their basic profile details
 exports.userProblems = catchAsync(async (req, res, next) => {
   const { email } = req.body;
 
@@ -107,6 +102,9 @@ exports.getLeaderboard = catchAsync(async (req, res, next) => {
   }
 });
 
+
+// Similar to userProblems, but it uses .populate("problems"). This returns the user's solved problems as full problem details 
+// (titles, descriptions) rather than just raw ID strings
 exports.getUserData = catchAsync(async (req, res, next) => {
   const { email } = req.body;
 
