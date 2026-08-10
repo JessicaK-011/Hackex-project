@@ -15,17 +15,34 @@ function extractJavaClassName(code) {
   return match ? match[1] : null;
 }
 
+// function handleJava(executionCode) {
+//   const className = extractJavaClassName(executionCode);
+//   if (!className) {
+//     throw new Error("Class name not found in the Java code.");
+//   }
+//   const fileName = `${className}.java`;
+//   const filePath = path.join(dirExecutionCodes, fileName);
+
+//   fs.writeFileSync(filePath, executionCode);
+
+//   // Extract the class name
+
+//   return filePath;
+// }
 function handleJava(executionCode) {
   const className = extractJavaClassName(executionCode);
   if (!className) {
     throw new Error("Class name not found in the Java code.");
   }
-  const fileName = `${className}.java`;
-  const filePath = path.join(dirExecutionCodes, fileName);
+  
+  // 1. Generate a unique folder for this specific request 
+  const executionId = uuidv4();
+  const folderPath = path.join(dirExecutionCodes, executionId);
+  fs.mkdirSync(folderPath, { recursive: true });
 
+  // 2. Save Main.java inside its own isolated folder 📁
+  const filePath = path.join(folderPath, `${className}.java`);
   fs.writeFileSync(filePath, executionCode);
-
-  // Extract the class name
 
   return filePath;
 }
