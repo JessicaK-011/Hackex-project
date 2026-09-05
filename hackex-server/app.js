@@ -33,7 +33,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 const limiter = rateLimit({
   max: 10000,
-  windowMs: 60 * 60 * 10000,
+  windowMs: 60 * 60 * 1000,
   message: "Too many requests from this IP. Please try again later.",
 });
 
