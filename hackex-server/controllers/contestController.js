@@ -48,15 +48,6 @@ exports.allContests = catchAsync(async (req, res, next) => {
   }
 });
 
-// exports.getContest = catchAsync(async (req, res, next) => {
-//   const { id } = req.params;
-//   try {
-//     const contest = await Contest.findById(id).populate("problems");
-//     res.status(200).json(contest);
-//   } catch (error) {
-//     res.status(500).json({ message: "Failed to fetch contest", error });
-//   }
-// });
 exports.getContest = catchAsync(async (req, res, next) => {
   const contest = await Contest.findById(req.params.id).populate("problems");
 
@@ -64,9 +55,18 @@ exports.getContest = catchAsync(async (req, res, next) => {
     return next(new AppError("No contest found with that ID", 404));
   }
 
-  //  Check if contest has started
-  if (Date.now() < new Date(contest.startTime).getTime()) {
+  const currentTime = Date.now();
+  const startTime = new Date(contest.startTime).getTime();
+  const endTime = new Date(contest.endTime).getTime();
+
+  // Contest has not started yet
+  if (currentTime < startTime) {
     return next(new AppError("This contest has not started yet!", 403));
+  }
+
+  // Contest has ended
+  if (currentTime > endTime) {
+    return next(new AppError("This contest has already ended!", 403));
   }
 
   res.status(200).json({
