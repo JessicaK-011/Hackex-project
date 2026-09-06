@@ -5,7 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 
 exports.getAllProblems = catchAsync(async (req, res, next) => {
   const problems = await Problem.find({});
-  if (!problems)
+  if (!problems || problems.length === 0)
     return next(new AppError("No problems found.Please try again later", 404));
   res.status(200).json({
     status: "success",
