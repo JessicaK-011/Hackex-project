@@ -21,7 +21,7 @@ app.post("/execute", async (req, res) => {
   const { langName, executionCode, customInput = "" } = req.body;
 
   if (!langName || !executionCode) {
-    return res.status(500).json({
+    return res.status(400).json({
       status: "fail",
       message:
         "Invalid request! Please provide both name of language and code to execute.",
