@@ -15,20 +15,6 @@ function extractJavaClassName(code) {
   return match ? match[1] : null;
 }
 
-// function handleJava(executionCode) {
-//   const className = extractJavaClassName(executionCode);
-//   if (!className) {
-//     throw new Error("Class name not found in the Java code.");
-//   }
-//   const fileName = `${className}.java`;
-//   const filePath = path.join(dirExecutionCodes, fileName);
-
-//   fs.writeFileSync(filePath, executionCode);
-
-//   // Extract the class name
-
-//   return filePath;
-// }
 function handleJava(executionCode) {
   const className = extractJavaClassName(executionCode);
   if (!className) {
